@@ -6,9 +6,11 @@ import { userApi } from "./user.api";
 const BASE_URL = import.meta.env.VITE_API_URL;
 export const authApi = createApi({
     reducerPath : "authApi",
+    tagTypes : ["User"], // Add the same tagTypes as userApi
 
     baseQuery : fetchBaseQuery({
         baseUrl : `${BASE_URL}/api/v1/auth`,
+        credentials : "include",
     }),
 
     endpoints : (build) => ({
@@ -23,13 +25,23 @@ export const authApi = createApi({
             async onQueryStarted (args, {dispatch, queryFulfilled}) {
                 try {
                     await queryFulfilled;
-                    // Wait for profile to be fetched and auth state updated
-                    await dispatch(userApi.endpoints.getProfile.initiate(null));
+                    
+                    // console.log("started fetching profile...");
+
+                    // Force fresh profile fetch by using forceRefetch
+                    dispatch(userApi.endpoints.getProfile.initiate(null, { 
+                        forceRefetch: true 
+                    }));
                 }
                 catch(error) {
+                    console.log("Login error:");
                     console.log(error);
+                    
                 }
-            }
+            },
+            
+            // Invalidate User tags to force profile refetch
+            invalidatesTags : ["User"]
         }),
 
         register : build.mutation({
@@ -40,14 +52,34 @@ export const authApi = createApi({
             })
         }),
 
-        logout : build.mutation({
+        logout : build.query({
             query : () => ({
                 url : "/logout",
-                method : "POST",
             }),
+
+            // to update the auth state in the store
+            async onQueryStarted(args, {dispatch, queryFulfilled}) {
+                try {
+                    await queryFulfilled;
+
+                    // console.log("started logout process...");
+                    
+                    dispatch(userApi.endpoints.getProfile.initiate(null, { 
+                        forceRefetch: true 
+                    }));
+
+                    // console.log("logout process completed.");
+                   
+                }
+                catch(error) {
+                    console.log("Logout error:");
+                    console.log(error);
+                }
+            },
+            invalidatesTags : ["User"],
         })
 
     })
 })
 
-export const {useLoginMutation, useRegisterMutation, useLogoutMutation} = authApi;
+export const {useLoginMutation, useRegisterMutation, useLazyLogoutQuery} = authApi;

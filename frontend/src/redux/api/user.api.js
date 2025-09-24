@@ -1,6 +1,5 @@
     import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-    import { setIsAuthenticated, setIsUserLoading, setUser } from "../features/userSlice";
-
+import { setIsUserLoading, setIsAuthenticated, setUser } from "../features/userSlice";
 
     // Base URL for the backend API
     const BASE_URL = import.meta.env.VITE_API_URL;
@@ -26,7 +25,7 @@
                     return response.data;
                 },
 
-                async onQueryStarted(args, {dispatch, queryFulfilled}) {
+                async onQueryStarted(args,  {dispatch, queryFulfilled}) {
                     dispatch(setIsUserLoading(true));
                     try {
                         const {data} = await queryFulfilled;
@@ -44,7 +43,7 @@
                     }
                 },
 
-                provideTags : ["User"]
+                provideTags : ["User"],
             }),
 
             updateProfile : build.mutation({
@@ -54,18 +53,7 @@
                     body : body,
                 }),
 
-                async onQueryStarted(args, {dispatch, queryFulfilled}) {
-                    try {
-                        const {data} = await queryFulfilled;
-                        // Update the user in the Redux store immediately
-                        dispatch(setUser(data.data));
-                    }
-                    catch(error) {
-                        console.log("Profile update error:", error);
-                    }
-                },
-
-                invalidatesTags : ["User"]
+                invalidatesTags : ["User"],
             }),
         })
     })

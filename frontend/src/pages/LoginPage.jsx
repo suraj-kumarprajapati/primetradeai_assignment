@@ -13,7 +13,7 @@ const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const { isAuthenticated } = useSelector(state => state.auth);
+    const { isAuthenticated} = useSelector(state => state.auth);
 
     const [login, { error, isLoading, isSuccess }] = useLoginMutation();
 
@@ -31,6 +31,9 @@ const LoginPage = () => {
 
     }, [error, isSuccess, isAuthenticated, navigate]);
 
+
+    // console.log(data);
+    // console.log(user);
 
 
 
@@ -74,9 +77,7 @@ const LoginPage = () => {
                         <div>
                             <div className="flex items-center justify-between">
                                 <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">Password <span className="text-red-500">*</span></label>
-                                <div className="text-sm">
-                                    <Link to="#" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</Link>
-                                </div>
+                               
                             </div>
                             <div className="mt-2">
                                 <input id="password" type="password" name="password" placeholder="* * * * * * * * * * *" required autoComplete="current-password"
@@ -85,7 +86,7 @@ const LoginPage = () => {
                         </div>
 
                         <div>
-                            <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+                            <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer">Sign in</button>
                         </div>
                     </form>
 

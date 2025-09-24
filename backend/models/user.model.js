@@ -16,6 +16,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "email field can not be empty"],
       unique: [true, "email must be unique"],
+      validate: {
+        validator: function (v) {
+          return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(v);
+        },
+        message: "Please enter a valid email address"
+      }
     },
     description : {
       type : String,

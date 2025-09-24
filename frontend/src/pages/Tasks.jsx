@@ -10,9 +10,11 @@ const Tasks = () => {
 
     // for opening the add task modal
     const [open, setOpen] = useState(false);
+    
+   
 
    
-    const { error : taskLoadError, isSuccess : taskLoadSuccess, data : tasks, isLoading : isTaskLoading} = useGetAllTasksQuery();
+    const { error ,  data : tasks, isLoading } = useGetAllTasksQuery();
 
    
 
@@ -20,19 +22,18 @@ const Tasks = () => {
 
     // getting all tasks
     useEffect(() => {
-        if (taskLoadError) {
-            toast.error(taskLoadError?.data?.message || "Something went wrong");
-        }
 
-        if (taskLoadSuccess) {
-            toast.success("tasks fetched successfully");
+        // Only show error toast if user is authenticated (to avoid logout-related errors)
+        if (error ) {
+            toast.error(error?.data?.message || "Something went wrong");
         }
-    }, [taskLoadError, taskLoadSuccess]);
+    }, [error]);
+
 
 
     
 
-    // loggin tasks
+    // logging tasks
     // console.log("Tasks API Response:", {
     //     tasks,
     //     isArray: Array.isArray(tasks),
@@ -42,7 +43,7 @@ const Tasks = () => {
 
 
 
-    if(isTaskLoading) {
+    if(isLoading) {
         return <Loader />;
     }
 
@@ -71,7 +72,7 @@ const Tasks = () => {
                     <button
                         type="button"
                         onClick={() => setOpen(true)}
-                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
                     >
                         <svg className="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />

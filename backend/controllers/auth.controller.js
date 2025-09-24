@@ -97,7 +97,7 @@ export const logout = catchAsyncErrors(
 
     (req, res, next) => {
 
-        res.cookie("authTken", null, {
+        res.cookie("authToken", null, {
             expires : new Date(Date.now()),
             httpOnly : true,
         });

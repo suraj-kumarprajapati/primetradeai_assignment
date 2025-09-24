@@ -192,7 +192,7 @@ const Profile = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   First Name
                 </label>
-                <p className="text-gray-900 text-lg">{user.firstName}</p>
+                <p className="text-gray-900 text-lg">{user?.firstName}</p>
               </div>
 
               {/* Last Name Display */}
@@ -200,7 +200,7 @@ const Profile = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Last Name
                 </label>
-                <p className="text-gray-900 text-lg">{user.lastName}</p>
+                <p className="text-gray-900 text-lg">{user?.lastName}</p>
               </div>
             </div>
 
@@ -209,7 +209,7 @@ const Profile = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address
               </label>
-              <p className="text-gray-900 text-lg">{user.email}</p>
+              <p className="text-gray-900 text-lg">{user?.email}</p>
             </div>
 
             {/* Description Display */}
@@ -219,7 +219,7 @@ const Profile = () => {
               </label>
               <div className="p-4 bg-gray-50 rounded-md min-h-20">
                 <p className="text-gray-900">
-                  {user.description || 'No description provided yet.'}
+                  {user?.description || 'No description provided yet.'}
                 </p>
               </div>
             </div>
@@ -231,7 +231,7 @@ const Profile = () => {
                   Account Created
                 </label>
                 <p className="text-gray-900">
-                  {new Date(user.createdAt).toLocaleDateString()}
+                  {new Date(user?.createdAt).toLocaleDateString()}
                 </p>
               </div>
 
@@ -240,7 +240,7 @@ const Profile = () => {
                   Last Updated
                 </label>
                 <p className="text-gray-900">
-                  {new Date(user.updatedAt).toLocaleDateString()}
+                  {new Date(user?.updatedAt).toLocaleDateString()}
                 </p>
               </div>
             </div>

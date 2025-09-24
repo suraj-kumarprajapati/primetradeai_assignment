@@ -10,12 +10,13 @@ import Profile from './pages/Profile';
 import ProtectedRoute from './components/ProtectedRoute';
 import { Toaster } from 'react-hot-toast';
 import Tasks from './pages/Tasks';
-import { useGetProfileQuery } from './redux/api/user.api';
 import AddTask from './components/AddTask';
+import { useGetProfileQuery } from './redux/api/user.api';
 
 function App() {
-  // Check authentication status on app load
+  
   useGetProfileQuery();
+
 
   return (
     <BrowserRouter>
@@ -26,7 +27,7 @@ function App() {
         <Route path={"/home"} element={< Home />} />
         <Route path={"/login"} element={<LoginPage />} />
         <Route path={"/register"} element={<Register />} />
-        <Route path={"/profile"} element={<ProtectedRoute><Profile /> </ProtectedRoute>} />
+        <Route path={"/profile"} element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
 
         <Route path={"/tasks"} element={<ProtectedRoute><Tasks /> </ProtectedRoute>} />
         <Route path={"/tasks/add"} element={<ProtectedRoute><AddTask /> </ProtectedRoute>} />

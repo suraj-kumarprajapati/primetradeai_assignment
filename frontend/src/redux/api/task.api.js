@@ -19,7 +19,8 @@ export const taskApi = createApi({
       }),
 
       transformResponse: (response) => {
-        return response.data || response;
+        // console.log("Tasks response:", response);
+        return response.data;
       },
 
       providesTags: ["Task"],

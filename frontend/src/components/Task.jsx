@@ -107,14 +107,14 @@ const Task = ({ task }) => {
                 <div className="flex items-center justify-end space-x-2 mt-4 pt-4 border-t border-gray-100">
                     <button 
                         onClick={() => setOpen(true)}
-                        className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-xs font-medium rounded-md text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700"
+                        className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-xs font-medium rounded-md text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 cursor-pointer"
                     >
                         Edit
                     </button>
 
                     <button 
                         onClick={handleDeleteTask}
-                        className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-xs font-medium rounded-md text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700"
+                        className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-xs font-medium rounded-md text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 cursor-pointer"
                     >
                         Delete
                     </button>

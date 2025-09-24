@@ -11,7 +11,7 @@ const authRoute = Router();
 
 authRoute.post("/register", registerUser); 
 authRoute.post("/login", loginUser);
-authRoute.post("/logout", isUserAuthenticated, logout);
+authRoute.get("/logout", isUserAuthenticated, logout);
 
 
 
