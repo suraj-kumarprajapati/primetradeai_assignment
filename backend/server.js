@@ -1,3 +1,8 @@
+
+import dotenv from "dotenv";
+dotenv.config();
+
+
 import express from "express";
 import { FRONTEND_URL, PORT } from "./config/envConfig.js";
 import { connectDB } from "./config/dbConfig.js";
