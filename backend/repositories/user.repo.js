@@ -17,3 +17,7 @@ export const findUserByEmail = async (email) => {
 export const findUserById = async (id) => {
     return await userModel.findById(id).select("-password");
 }
+
+export const updateUserById = async (id, updateData) => {
+    return await userModel.findByIdAndUpdate(id, updateData, { new: true }).select("-password");
+}

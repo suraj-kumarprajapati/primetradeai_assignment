@@ -88,3 +88,24 @@ export const loginUser = catchAsyncErrors(async (req, res, next) => {
     data: user,
   });
 });
+
+
+
+
+
+export const logout = catchAsyncErrors(
+
+    (req, res, next) => {
+
+        res.cookie("authTken", null, {
+            expires : new Date(Date.now()),
+            httpOnly : true,
+        });
+        
+        res.status(200).json({
+            message : "Logged Out successfully",
+            data : null,
+        });
+    }
+    
+);

@@ -2,7 +2,8 @@
 
 
 import { Router } from "express";
-import { loginUser, registerUser } from "../controllers/auth.controller.js";
+import { loginUser, logout, registerUser } from "../controllers/auth.controller.js";
+import { isUserAuthenticated } from "../middlewares/authMiddleware.js";
 
 
 const authRoute = Router();
@@ -10,6 +11,8 @@ const authRoute = Router();
 
 authRoute.post("/register", registerUser); 
 authRoute.post("/login", loginUser);
+authRoute.post("/logout", isUserAuthenticated, logout);
+
 
 
 

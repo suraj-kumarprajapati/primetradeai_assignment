@@ -2,7 +2,7 @@
 
 import { Router } from "express";
 import { isUserAuthenticated } from "../middlewares/authMiddleware.js";
-import { fetchUserDetails } from "../controllers/user.controller.js";
+import { fetchUserDetails, updateUser } from "../controllers/user.controller.js";
 
 
 const userRoute = Router();
@@ -10,6 +10,7 @@ const userRoute = Router();
 
 
 userRoute.get("/profile", isUserAuthenticated, fetchUserDetails);
+userRoute.put("/profile/update", isUserAuthenticated, updateUser);
 
 
 

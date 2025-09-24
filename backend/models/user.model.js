@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
       required: [true, "email field can not be empty"],
       unique: [true, "email must be unique"],
     },
+    description : {
+      type : String,
+      default : "",
+    },
     password: {
       type: String,
       required: [true, "password can not be empty"],
