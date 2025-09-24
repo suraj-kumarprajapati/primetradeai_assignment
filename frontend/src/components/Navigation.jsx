@@ -1,6 +1,11 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useLogoutMutation } from '../redux/api/auth.api'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setIsUserLoading, setIsAuthenticated, setUser } from '../redux/features/userSlice'
+import toast from 'react-hot-toast'
 
 const navigation = [
   { name: 'Tasks', href: '/tasks' },
@@ -11,6 +16,35 @@ function classNames(...classes) {
 }
 
 export default function Navigation() {
+
+    const [logout, {error, isSuccess}] = useLogoutMutation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+
+
+    useEffect(() => {
+
+        if(error) {
+            toast.error(error?.data?.message || "Something went wrong");
+        }
+
+        if(isSuccess) {
+            toast.success("logout successfull");
+        }
+
+    }, [error, isSuccess]);
+
+    const handleLogout = async () => {
+        await logout();
+
+        dispatch(setUser(null));
+        dispatch(setIsAuthenticated(false));
+        dispatch(setIsUserLoading(false));
+        navigate("/login");
+    }
+
+
 
   return (
     <Disclosure as="nav" className="relative bg-gray-800 z-50 ">
@@ -82,12 +116,12 @@ export default function Navigation() {
                 </MenuItem>
              
                 <MenuItem>
-                  <Link
-                    to="/logout"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                   >
                     Sign out
-                  </Link>
+                  </button>
                 </MenuItem>
               </MenuItems>
             </Menu>

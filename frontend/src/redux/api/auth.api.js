@@ -22,10 +22,9 @@ export const authApi = createApi({
 
             async onQueryStarted (args, {dispatch, queryFulfilled}) {
                 try {
-                    // console.log("initiating fetch profile");
-                    const {data} = await queryFulfilled;
-                    // console.log(data);
-                    dispatch(userApi.endpoints.getProfile.initiate(null));
+                    await queryFulfilled;
+                    // Wait for profile to be fetched and auth state updated
+                    await dispatch(userApi.endpoints.getProfile.initiate(null));
                 }
                 catch(error) {
                     console.log(error);
@@ -39,8 +38,16 @@ export const authApi = createApi({
                 method : "POST",
                 body : body,
             })
+        }),
+
+        logout : build.mutation({
+            query : () => ({
+                url : "/logout",
+                method : "POST",
+            }),
         })
+
     })
 })
 
-export const {useLoginMutation, useRegisterMutation} = authApi;
+export const {useLoginMutation, useRegisterMutation, useLogoutMutation} = authApi;

@@ -1,5 +1,7 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { useDeleteTaskMutation } from "../redux/api/task.api";
+import toast from "react-hot-toast";
+import EditTask from "./EditTask";
 
 const Task = ({ task }) => {
 
@@ -35,6 +37,24 @@ const Task = ({ task }) => {
         });
     };
 
+
+    const [deleteTask, {error, isSuccess}] = useDeleteTaskMutation();
+
+    useEffect(() => {
+        if(error) {
+            toast.error(error?.data?.message || "Something went wrong");
+        }
+
+        if(isSuccess) {
+            toast.success("Task Deleted Successfully");
+        }
+    }, [error, isSuccess])
+
+
+    // handle delete task
+    const handleDeleteTask = async () => {
+        await deleteTask(task?._id);
+    }
    
 
   
@@ -86,16 +106,23 @@ const Task = ({ task }) => {
                 {/* Action Buttons */}
                 <div className="flex items-center justify-end space-x-2 mt-4 pt-4 border-t border-gray-100">
                     <button 
-                        onClick={() => setOpen(open)}
+                        onClick={() => setOpen(true)}
                         className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-xs font-medium rounded-md text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700"
                     >
                         Edit
+                    </button>
+
+                    <button 
+                        onClick={handleDeleteTask}
+                        className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-xs font-medium rounded-md text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700"
+                    >
+                        Delete
                     </button>
                    
                 </div>
             </div>
 
-            {/* <EditTask open={open} setOpen={setOpen}  task={task} /> */}
+            <EditTask open={open} setOpen={setOpen}  task={task} />
         </div>
     );
 };

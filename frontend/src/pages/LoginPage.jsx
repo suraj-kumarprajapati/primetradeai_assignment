@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useState, useEffect } from "react";
 import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 const LoginPage = () => {
@@ -12,8 +13,9 @@ const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const { isAuthenticated } = useSelector(state => state.auth);
 
-    const [login, { error, data, isLoading, isSuccess }] = useLoginMutation();
+    const [login, { error, isLoading, isSuccess }] = useLoginMutation();
 
 
     useEffect(() => {
@@ -21,12 +23,13 @@ const LoginPage = () => {
             toast.error(error?.data?.message || "Something went wrong");
         }
 
-        if (isSuccess) {
+        // Wait for both login success AND authentication state to be updated
+        if (isSuccess && isAuthenticated) {
             toast.success("login successfull");
-            navigate("/profile");
+            navigate("/tasks");
         }
 
-    }, [error, isSuccess, navigate]);
+    }, [error, isSuccess, isAuthenticated, navigate]);
 
 
 
@@ -42,8 +45,6 @@ const LoginPage = () => {
         }
 
         await login(loginFormData);
-        navigate("/profile");
-
     }
 
     if (isLoading) {
@@ -54,8 +55,6 @@ const LoginPage = () => {
 
     return (
         <>
-
-
 
             <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">

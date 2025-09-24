@@ -35,7 +35,7 @@
                         dispatch(setIsAuthenticated(true));
                     }
                     catch(error) {
-                        // console.log("Profile fetch error:", error);
+                        console.log("Profile fetch error:", error);
                         dispatch(setUser(null));
                         dispatch(setIsAuthenticated(false));
                     }
@@ -46,9 +46,30 @@
 
                 provideTags : ["User"]
             }),
+
+            updateProfile : build.mutation({
+                query : (body) => ({
+                    url : "/profile/update",
+                    method : "PUT",
+                    body : body,
+                }),
+
+                async onQueryStarted(args, {dispatch, queryFulfilled}) {
+                    try {
+                        const {data} = await queryFulfilled;
+                        // Update the user in the Redux store immediately
+                        dispatch(setUser(data.data));
+                    }
+                    catch(error) {
+                        console.log("Profile update error:", error);
+                    }
+                },
+
+                invalidatesTags : ["User"]
+            }),
         })
     })
 
 
-    export const {useGetProfileQuery} = userApi;
+    export const {useGetProfileQuery, useUpdateProfileMutation} = userApi;
 

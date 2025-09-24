@@ -17,7 +17,7 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const [register, {data, isSuccess, isLoading, error}] = useRegisterMutation();
+    const [register, { isSuccess, isLoading, error}] = useRegisterMutation();
 
 
 
