@@ -13,6 +13,11 @@ import cors from "cors";
 connectDB();
 const app = express();
 
+
+app.get("/", (req, res) => {
+    res.send("API is running...");
+});
+
  
 // middlewares
 app.use(express.json());
