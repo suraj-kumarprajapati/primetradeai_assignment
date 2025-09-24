@@ -15,3 +15,5 @@ export const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
 
 // cookie configurations
 export const COOKIE_EXPIRES_TIME = process.env.COOKIE_EXPIRES_TIME;
+
+export const FRONTEND_URL = process.env.FRONTEND_URL;

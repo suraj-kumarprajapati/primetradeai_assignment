@@ -17,3 +17,14 @@ export const createTask = async (taskData) => {
     const newTask = await taskModel.create(taskData);
     return newTask;
 }
+
+export const updateTaskById = async (id, updateData) => {
+    const updatedTask = await taskModel.findByIdAndUpdate(id, updateData, { new: true });
+    return updatedTask;
+}
+
+
+export const deleteTaskById = async (id) => {
+    const deletedTask = await taskModel.findByIdAndDelete(id);
+    return deletedTask;
+}

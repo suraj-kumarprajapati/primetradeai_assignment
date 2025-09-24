@@ -1,6 +1,7 @@
 import { catchAsyncErrors } from "../errors/globalErrorHandler.js";
 import {findUserById } from "../repositories/user.repo.js";
 
+// get user details controller
 export const fetchUserDetails = catchAsyncErrors(async (req, res, next) => {
   // extract current logged in user from the req object
   const { currentUser } = req;
@@ -11,6 +12,11 @@ export const fetchUserDetails = catchAsyncErrors(async (req, res, next) => {
     message: "user details fetched successfully",
     data: user,
   });
+});
+
+
+// implement update user controller
+export const updateUser = catchAsyncErrors(async (req, res, next) => {
 });
 
 
