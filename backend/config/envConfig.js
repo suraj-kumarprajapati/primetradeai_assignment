@@ -19,4 +19,4 @@ export const COOKIE_EXPIRES_TIME = process.env.COOKIE_EXPIRES_TIME;
 export const FRONTEND_URL = process.env.FRONTEND_URL;
 
 
-export const project_name = process.env.PROJECT_NAME;
+export const PROJECT_NAME = process.env.PROJECT_NAME;
