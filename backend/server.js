@@ -12,6 +12,8 @@ import userRoute from "./routes/user.routes.js";
 import cookieParser from "cookie-parser";
 import taskRoute from "./routes/task.routes.js";
 import cors from "cors";
+import morgan from "morgan";
+
 
 
 
@@ -19,10 +21,8 @@ connectDB();
 const app = express();
 
 
-app.get("/", (req, res) => {
-    res.send("API is running... and project name is " + PROJECT_NAME);
 
-});
+
 
  
 // middlewares
@@ -33,6 +33,22 @@ app.use(cors({
     credentials: true,  
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 }));
+
+
+// Logging middleware
+if (process.env.NODE_ENV === 'production') {
+    app.use(morgan('combined')); 
+} else {
+    app.use(morgan('dev'));
+}
+ 
+
+
+app.get("/", (req, res) => {
+    res.send("API is running... and project name is " + PROJECT_NAME);
+
+});
+
 
 
 app.use("/api/v1/auth", authRoute);
