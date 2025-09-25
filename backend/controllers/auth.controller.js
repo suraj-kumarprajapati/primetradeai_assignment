@@ -103,6 +103,8 @@ export const logout = catchAsyncErrors(
         res.cookie("authToken", null, {
             expires : new Date(Date.now()),
             httpOnly : true,
+            secure : NODE_ENV === "production",
+            sameSite : NODE_ENV === "production" ? "none" : "lax",
         });
         
         res.status(200).json({
