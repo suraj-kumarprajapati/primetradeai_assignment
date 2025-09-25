@@ -6,7 +6,6 @@ import { MONGO_URI } from "./envConfig.js";
 export const connectDB = async () => {
 
     console.log("Connecting to database...");
-    console.log(MONGO_URI);
 
     try {
         await mongoose.connect(MONGO_URI);
