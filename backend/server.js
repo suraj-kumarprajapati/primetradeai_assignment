@@ -1,30 +1,43 @@
+
+import dotenv from "dotenv";
+dotenv.config();
+
+
 import express from "express";
-import { FRONTEND_URL, PORT } from "./config/envConfig.js";
+import { FRONTEND_URL, PORT, PROJECT_NAME } from "./config/envConfig.js";
 import { connectDB } from "./config/dbConfig.js";
 import authRoute from "./routes/auth.routes.js";
 import { errorDetector } from "./errors/globalErrorHandler.js";
 import userRoute from "./routes/user.routes.js";
 import cookieParser from "cookie-parser";
 import taskRoute from "./routes/task.routes.js";
+import cors from "cors";
+
 
 
 connectDB();
-const ap
-
-= express();
-
-// middlewares
-app.us
+const app = express();
 
 
 app.get("/", (req, res) => {
-    res.send("API is running...");
-});e(ex press.json());
+    res.send("API is running... and project name is " + PROJECT_NAME);
+
+});
+
+ 
+// middlewares
+app.use(express.json());
 app.use(cookieParser());
+app.use(cors({
+    origin: FRONTEND_URL,
+    credentials: true,  
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+}));
 
 
 app.use("/api/v1/auth", authRoute);
-app.use("/api/vFRONTEND_URL,pp.use("/api/v1/tasks", taskRoute);
+app.use("/api/v1/users", userRoute);
+app.use("/api/v1/tasks", taskRoute);
 
 
 // error detector middleware
