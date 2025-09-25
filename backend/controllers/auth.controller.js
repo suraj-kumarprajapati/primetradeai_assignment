@@ -13,6 +13,7 @@ import {
   JWT_EXPIRES_IN,
   JWT_SECRET,
   COOKIE_EXPIRES_TIME,
+  NODE_ENV,
 } from "../config/envConfig.js";
 import {catchAsyncErrors} from "../errors/globalErrorHandler.js";
 
@@ -75,6 +76,8 @@ export const loginUser = catchAsyncErrors(async (req, res, next) => {
   // save this token as httpOnly cookie
   res.cookie("authToken", token, {
     httpOnly: true,
+    secure : NODE_ENV === "production",
+    sameSite : NODE_ENV === "production" ? "none" : "lax",
     expires: new Date(
       Date.now() + process.env.COOKIE_EXPIRES_TIME * 24 * 60 * 60 * 1000
     ),

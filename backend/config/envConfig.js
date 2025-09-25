@@ -20,3 +20,5 @@ export const FRONTEND_URL = process.env.FRONTEND_URL;
 
 
 export const PROJECT_NAME = process.env.PROJECT_NAME;
+
+export const NODE_ENV = process.env.NODE_ENV;
